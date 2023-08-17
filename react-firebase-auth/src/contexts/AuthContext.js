@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   onAuthStateChanged
 } from 'firebase/auth';
 import { auth } from '../firebase';
@@ -41,7 +42,13 @@ export function AuthProvider({ children }) {
   }
 
   function resetPassword(email) {
-    return auth.sendPasswordResetEmail(email);
+    
+    try{
+      return sendPasswordResetEmail(auth, email);
+    }
+    catch(e){
+      throw e
+    }
   }
 
   function updateEmail(email) {
